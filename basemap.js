@@ -1,7 +1,8 @@
 let myMap = L.map("mapdiv"); // http://leafletjs.com/reference-1.3.0.html#map-l-map
 let myLayers = {
     osm : L.tileLayer( // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { // 
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
+        // subdomains: ['', '', ''], // subdomains hinzugefügt
         attribution : "Datenquelle: <a href='https://www.openstreetmap.org'>OpenStreetMap"
         }
     ),
@@ -37,15 +38,8 @@ let myLayers = {
         attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at"
     }
     ),
-    // Versuch einer neuen Karte
-    //googlemaps : L.tileLayer(
-    //    "https://www.google.com/maps/search/google+maps/@47.262922,11.3887497,15z/data=!3m1!4b1",{
-    //    subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
-    //    attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at"
-    //}
-    //),
+   
 }
-
 myMap.addLayer(myLayers.geolandbasemap); // http://leafletjs.com/reference-1.3.0.html#layergroup-addlayer
 
 let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
@@ -61,8 +55,24 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
 
 // Einstellungen 11 = Zoomfaktor
-
 myMap.setView([47.267,11.383],11); //http://leafletjs.com/reference-1.3.0.html#map-setview
+
+// Massstab einfuegen
+L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-scale
+    maxWidth: 200,
+    metric: true,
+    imperial: false
+}).addTo(myMap);
+
+
+
+
+
+
+
+
+
+
 
 /* Objekte erstellen
 let myLayers = {
@@ -71,12 +81,9 @@ let myLayers = {
     farbe : "grün",
     liste : [1,2,3,4],
     nocheinobjekt = {
-
     }
 }
 */
-
-
 /*
 myLayer = L.tileLayer("https://maps.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png")
 // let url = "https://maps.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png"
