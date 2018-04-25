@@ -1,4 +1,5 @@
 let myMap = L.map("mapdiv"); // http://leafletjs.com/reference-1.3.0.html#map-l-map
+let markerGroup = L.featureGroup(); // Gruppe fuer Marker
 let myLayers = {
     osm : L.tileLayer( // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
@@ -51,6 +52,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
+    "Marker" : markerGroup,
 });
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
 
@@ -68,23 +70,39 @@ L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-sca
     imperial: false     // http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
 }).addTo(myMap);
 
-const uni = [47.264, 11.385];
-const usi = [47.257, 11.356];
-const technick = [47.263, 11.343];
+const uni = [47.264,11.385];
+const usi = [47.257,11.356];
+const technick = [47.263,11.343];
+const igls = [47.229,11.414]
+const patscherkofel = [47.208,11.460]
+myMap.addLayer(markerGroup);
 const markerOptions = {             // Variabel für alle Marker erstellt
     title: "Universität Innsbruck",
     opacity: 0.6, // transparenz 
     draggable: true // Marker verschieben
 }
-L.marker(uni, markerOptions).addTo(myMap) // Marker hinzugefuegt auf der Uni Innsbruck 
+L.marker(uni, markerOptions).addTo(markerGroup); // Marker hinzugefuegt auf der Uni Innsbruck 
+L.marker(usi, markerOptions).addTo(markerGroup);
+L.marker(technick, markerOptions).addTo(markerGroup);
+L.marker(igls, markerOptions).addTo(markerGroup);
 
-L.marker(usi, markerOptions).addTo(myMap)
+let patscherkofelmarker = L.marker(patscherkofel, markerOptions,).addTo(markerGroup);
 
-L.marker(technick, markerOptions).addTo(myMap)
+patscherkofelmarker.bindPopup("<p>Patscherkofel von der Nordkette aus</p> <img style='width:200px'src='https://apps.tirol.gv.at/luft/nordkette.jpg' alt='Patscherkofel' />");
+
+let lift = L.polyline([igls, patscherkofel],{
+    color: 'green'
+})
+myMap.addLayer(lift);
 
 
-myMap.setView(uni,14);
+let uniPolygon = L.polygon([uni,usi,technick]);
+myMap.addLayer(uniPolygon);
+uniPolygon.bindPopup("Magisches Dreieck!");
 
+
+myMap.fitBounds(markerGroup.getBounds());
+ 
 
 
 
