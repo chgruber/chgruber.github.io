@@ -69,7 +69,7 @@ L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-sca
 }).addTo(myMap);
 
 
-
+L.marker([47.264, 11.385]).addTo(myMap) // Marker hinzugefuegt auf der Uni Innsbruck 
 
 
 
