@@ -54,7 +54,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
 });
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
 
-myMapControl.expand()
+myMapControl.expand() // Methode um My Controll Feld automatisch auszuklappen
 
 // Einstellungen 11 = Zoomfaktor
 myMap.setView([47.267,11.383],11); //http://leafletjs.com/reference-1.3.0.html#map-setview
