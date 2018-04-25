@@ -2,7 +2,7 @@ let myMap = L.map("mapdiv"); // http://leafletjs.com/reference-1.3.0.html#map-l-
 let myLayers = {
     osm : L.tileLayer( // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
-        // subdomains: ['', '', ''], // subdomains hinzugefügt
+        // subdomains: ['a', 'b', 'c'], // subdomains hinzugefügt
         attribution : "Datenquelle: <a href='https://www.openstreetmap.org'>OpenStreetMap"
         }
     ),
@@ -59,9 +59,9 @@ myMap.setView([47.267,11.383],11); //http://leafletjs.com/reference-1.3.0.html#m
 
 // Massstab einfuegen
 L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-scale
-    maxWidth: 200,
-    metric: true,
-    imperial: false
+    maxWidth: 200,      // http://leafletjs.com/reference-1.3.0.html#control-scale-maxwidth
+    metric: true,       // http://leafletjs.com/reference-1.3.0.html#control-scale-metric
+    imperial: false     // http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
 }).addTo(myMap);
 
 
