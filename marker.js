@@ -68,8 +68,22 @@ L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-sca
     imperial: false     // http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
 }).addTo(myMap);
 
+const uni = [47.264, 11.385];
+const usi = [47.257, 11.356];
+const technick = [47.263, 11.343];
+const markerOptions = {             // Variabel für alle Marker erstellt
+    title: "Universität Innsbruck",
+    opacity: 0.6, // transparenz 
+    draggable: true // Marker verschieben
+}
+L.marker(uni, markerOptions).addTo(myMap) // Marker hinzugefuegt auf der Uni Innsbruck 
 
-L.marker([47.264, 11.385]).addTo(myMap) // Marker hinzugefuegt auf der Uni Innsbruck 
+L.marker(usi, markerOptions).addTo(myMap)
+
+L.marker(technick, markerOptions).addTo(myMap)
+
+
+myMap.setView(uni,14);
 
 
 
