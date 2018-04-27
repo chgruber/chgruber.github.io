@@ -37,11 +37,11 @@ let myLayers = {
 myMap.addLayer(myLayers.geolandbasemap); // http://leafletjs.com/reference-1.3.0.html#layergroup-addlayer
 
 let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
-    "OpenStreetMap" : myLayers.osm,
+    //"OpenStreetMap" : myLayers.osm,
     "basemap.at Grundkarte" : myLayers.geolandbasemap,
    
     "basemap.at grau" : myLayers.bmapgrau,
-    "basemap.at highdpi" : myLayers.bmaphidpi,
+    //"basemap.at highdpi" : myLayers.bmaphidpi,
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
