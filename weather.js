@@ -1,13 +1,6 @@
 let myMap = L.map("mapdiv"); // http://leafletjs.com/reference-1.3.0.html#map-l-map
 let markerGroup = L.featureGroup(); // Gruppe fuer Marker
 let myLayers = {
-    osm : L.tileLayer( // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
-        // subdomains: ['a', 'b', 'c'], // subdomains hinzugefügt
-        attribution : "Datenquelle: <a href='https://www.openstreetmap.org'>OpenStreetMap"
-        }
-    ),
-    //* {s} steht sämtliche subdomain - maps,1,2,3,4
     geolandbasemap : L.tileLayer(
         "https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
         subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],  //http://leafletjs.com/reference-1.3.0.html#tilelayer-subdomains
@@ -27,12 +20,12 @@ let myLayers = {
         attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at"
     }
     ),
-    bmaphidpi : L.tileLayer(
-        "https://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
-        subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
-        attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at"
-    }
-    ),
+//    bmaphidpi : L.tileLayer(
+//        "https://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
+//        subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
+//        attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at"
+//    }
+//    ),
     bmaporthofoto30cm : L.tileLayer(
         "https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg",{
         subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
