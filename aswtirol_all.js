@@ -57,7 +57,7 @@ myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-
 myMapControl.expand() // Methode um My Controll Feld automatisch auszuklappen
 
 // Einstellungen 11 = Zoomfaktor
-myMap.setView([47.267,11.383],11); //http://leafletjs.com/reference-1.3.0.html#map-setview
+myMap.setView([47.267,11.383],9); //http://leafletjs.com/reference-1.3.0.html#map-setview
 
 
 
@@ -68,4 +68,7 @@ L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-sca
     imperial: false     // http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
 }).addTo(myMap);
 
+// neu
+console.log("Stationen: ", stationen);
 
+L.geoJSON(stationen).addTo(myMap);
