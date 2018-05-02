@@ -1,5 +1,6 @@
 let myMap = L.map("mapdiv"); // http://leafletjs.com/reference-1.3.0.html#map-l-map
-const spazierwege = L.featureGroup().addTo(myMap); // neue Gruppe fuer marker
+let Wiengroup = L.featureGroup()
+
 let myLayers = {
     osm : L.tileLayer( // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
@@ -52,7 +53,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
-    "Stadspazierwege" : spazierwege,
+    //"Stadspazierwege" : Wiengroup,
 
 });
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
@@ -72,17 +73,37 @@ L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-sca
 }).addTo(myMap);
 
 // alle Stationen einfügen
-console.log("Spazierwege: ", wege);
+//console.log("Spazierwege: ", wege);
 
-let geojson = L.geoJSON(wege).addTo(spazierwege);
-// Daten aus geojson auslesen
-geojson.bindPopup(function(layer) {
+async function addGeojson(url) {
+    //console.log("Url wird geladen: ", url);
+    const response = await fetch(url); // Kommando um url zu holen
+    //console.log("Response:", response);
+    const wiendata = await response.json();
+    console.log("GeoJson: ", wiendata);
 
-    const props = layer.feature.properties; 
-    const popupText = `<h1>${layer.feature.properties.NAME}</h1>
-    <p> ${layer.feature.properties.BEMERKUNG}</p>`;
-    return popupText;
-   // console.log("Layer for popup:", layer); // wurde ersetzt
-});
+    const geojson = L.geoJSON (wiendata, {
+        style: function(feature){
+            return {color: "ff000"};
+        },
 
-myMap.fitBounds(spazierwege.getBounds());
+         pointToLayer: function(geoJsonPoint, latling) {
+            return L.marker(latling, {
+                icon: L.icon ({
+                    iconUrl: "icons/penguin-2.png"
+                })
+            });
+        }
+    });
+    Wiengroup.addLayer(geojson)
+
+    myMap.addLayer(Wiengroup);
+    myMap.fitBounds(Wiengroup.getBounds());
+    
+}
+
+const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:SPAZIERPUNKTOGD,ogdwien:SPAZIERLINIEOGD"
+
+addGeojson(url);
+
+   
