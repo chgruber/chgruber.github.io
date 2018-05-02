@@ -1,4 +1,5 @@
 let myMap = L.map("mapdiv"); // http://leafletjs.com/reference-1.3.0.html#map-l-map
+const awsGroup = L.featureGroup().addTo(myMap); // neue Gruppe fuer marker
 let myLayers = {
     osm : L.tileLayer( // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
@@ -51,6 +52,8 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
+    "Wetterstationen" : awsGroup,
+
 });
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
 
@@ -68,7 +71,16 @@ L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-sca
     imperial: false     // http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
 }).addTo(myMap);
 
-// neu
+// alle Stationen einfügen
 console.log("Stationen: ", stationen);
 
-L.geoJSON(stationen).addTo(myMap);
+let geojson = L.geoJSON(stationen).addTo(awsGroup);
+// Daten aus geojson auslesen
+geojson.bindPopup(function(layer) {
+
+    const props = layer.feature.properties; 
+    const popupText = `<h1>${layer.feature.properties.name}</h1>;
+    <p>Temperatur: ${layer.feature.properties.LT} °C</p>`;
+    return popupText;
+   // console.log("Layer for popup:", layer); // wurde ersetzt
+});
