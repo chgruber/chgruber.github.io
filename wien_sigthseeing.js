@@ -90,7 +90,7 @@ async function addGeojson(url) {
          pointToLayer: function(geoJsonPoint, latling) {
             return L.marker(latling, {
                 icon: L.icon ({
-                    iconUrl: "icons/msut_see.png"
+                    iconUrl: "icons/must_see.png"
                 })
             });
         }
@@ -99,6 +99,14 @@ async function addGeojson(url) {
 
     myMap.addLayer(Wiengroup);
     myMap.fitBounds(Wiengroup.getBounds());
+    geojson.bindPopup(function(layer) {
+        const properties = layer.feature.properties;
+        const popupText = `<h1>${properties.NAME}</h1>
+        <p> Adresse: ${properties.ADRESSE} </p>
+        <p> Weitere Infos: ${properties.WEITERE_INF} </p>`;
+        return popupText;
+        
+    });
     
 }
 

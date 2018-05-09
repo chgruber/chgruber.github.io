@@ -99,7 +99,13 @@ async function addGeojson(url) {
 
     myMap.addLayer(Wiengroup);
     myMap.fitBounds(Wiengroup.getBounds());
-    
+    geojson.bindPopup(function(layer) {
+        const properties = layer.feature.properties;
+        const popupText = `<h1>${properties.STATION}</h1>
+        <p> Bezirk: ${properties.BEZIRK} </p>`;
+        return popupText;
+        
+    });
 }
 
 const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json"
