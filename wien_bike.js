@@ -109,10 +109,16 @@ async function addGeojson(url) {
     });
     const hash = new L.Hash(myMap); // ladet die Karte am letzten Standort (Koordinaten in der url)
     
+
     // funktion damit die Icons nicht überlappen, neue Gruppe markers...
     markers.addLayer(geojson);
     myMap.addLayer(markers);
 
+    myMap.addControl( new L.Control.Search({
+       layer: markers,
+       propertyName: `STATION`
+     }) );  
+    
     myMap.fitBounds(markers.getBounds());
 }
 
