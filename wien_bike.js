@@ -106,6 +106,7 @@ async function addGeojson(url) {
         return popupText;
         
     });
+    const hash = new L.Hash(myMap);
 }
 
 const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json"
