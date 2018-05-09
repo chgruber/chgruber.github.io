@@ -75,6 +75,16 @@ async function ladeGeojsonLayer(url) {
     karte.fitBounds(geojsonGruppe.getBounds());
 }
 
+// Auswahl sortieren
+wienDatensaetze.sort(function(a,b) {
+    if (a.titel < b.titel) {
+        return -1;
+    } else if (a.titel > b.titel) {
+        return 1;
+    } else {
+        return 0;
+    }    
+})
 // den GeoJSON Layer für Grillplätze laden
 ladeGeojsonLayer(wienDatensaetze[0].json);
 
