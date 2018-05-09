@@ -53,7 +53,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
-    "Sehenswürdigkeiten" : Wiengroup,
+    "Sehenswuerdigkeiten" : Wiengroup,
 
 });
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
