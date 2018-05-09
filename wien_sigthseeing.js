@@ -53,7 +53,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
-    //"Stadspazierwege" : Wiengroup,
+    "Sehenswürdigkeiten" : Wiengroup,
 
 });
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
@@ -61,7 +61,7 @@ myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-
 myMapControl.expand() // Methode um My Controll Feld automatisch auszuklappen
 
 // Einstellungen 11 = Zoomfaktor
-myMap.setView([47.267,11.383],9); //http://leafletjs.com/reference-1.3.0.html#map-setview
+//myMap.setView([47.267,11.383],9); //http://leafletjs.com/reference-1.3.0.html#map-setview
 
 
 
@@ -90,7 +90,7 @@ async function addGeojson(url) {
          pointToLayer: function(geoJsonPoint, latling) {
             return L.marker(latling, {
                 icon: L.icon ({
-                    iconUrl: "icons/penguin-2.png"
+                    iconUrl: "icons/msut_see.png"
                 })
             });
         }
@@ -102,7 +102,7 @@ async function addGeojson(url) {
     
 }
 
-const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:SPAZIERPUNKTOGD,ogdwien:SPAZIERLINIEOGD"
+const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json"
 
 addGeojson(url);
 
