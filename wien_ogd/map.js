@@ -76,4 +76,14 @@ async function ladeGeojsonLayer(url) {
 }
 
 // den GeoJSON Layer für Grillplätze laden
-ladeGeojsonLayer("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:GRILLPLATZOGD&srsName=EPSG:4326&outputFormat=json");
+ladeGeojsonLayer(wienDatensaetze[0].json);
+
+// zugriff auf die ID um die Auswahl in der Html zu veraendern
+let layerAuswahl = document.getElementById("layerAuswahl");
+
+for (datensatz of wienDatensaetze) {
+    layerAuswahl.innerHTML += `<option value="${datensatz.json}">${datensatz.titel}</option>`
+    console.log(datensatz.titel)
+}
+
+//console.log(wienDatensaetze) // zeigt alle Datensaetze an 
