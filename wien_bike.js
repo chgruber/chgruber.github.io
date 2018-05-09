@@ -1,5 +1,6 @@
 let myMap = L.map("mapdiv"); // http://leafletjs.com/reference-1.3.0.html#map-l-map
 let Wiengroup = L.featureGroup()
+const markers = L.markerClusterGroup();
 
 let myLayers = {
     osm : L.tileLayer( // http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
@@ -53,7 +54,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
-    "Bikestationen" : Wiengroup,
+    "Bikestationen" : markers,
 
 });
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
@@ -95,10 +96,10 @@ async function addGeojson(url) {
             });
         }
     });
-    Wiengroup.addLayer(geojson)
+    //Wiengroup.addLayer(geojson) // wird ersetzt durch "markers"
 
-    myMap.addLayer(Wiengroup);
-    myMap.fitBounds(Wiengroup.getBounds());
+    //myMap.addLayer(Wiengroup);
+    
     geojson.bindPopup(function(layer) {
         const properties = layer.feature.properties;
         const popupText = `<h1>${properties.STATION}</h1>
@@ -108,13 +109,13 @@ async function addGeojson(url) {
     });
     const hash = new L.Hash(myMap); // ladet die Karte am letzten Standort (Koordinaten in der url)
     
-    const markers = L.markerClusterGroup();
+    // funktion damit die Icons nicht überlappen, neue Gruppe markers...
     markers.addLayer(geojson);
     myMap.addLayer(markers);
+
+    myMap.fitBounds(markers.getBounds());
 }
 
 const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json"
 
 addGeojson(url);
-
-   
