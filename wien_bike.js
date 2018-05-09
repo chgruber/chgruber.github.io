@@ -114,6 +114,7 @@ async function addGeojson(url) {
     markers.addLayer(geojson);
     myMap.addLayer(markers);
 
+    // Suchfunktion mit dem Layer Markers "Stationen namen"
     myMap.addControl( new L.Control.Search({
        layer: markers,
        propertyName: `STATION`
