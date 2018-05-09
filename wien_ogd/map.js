@@ -83,7 +83,11 @@ let layerAuswahl = document.getElementById("layerAuswahl");
 
 for (datensatz of wienDatensaetze) {
     layerAuswahl.innerHTML += `<option value="${datensatz.json}">${datensatz.titel}</option>`
-    console.log(datensatz.titel)
+    //console.log(datensatz.titel)
 }
 
+layerAuswahl.onchange = function(evt) {
+    geojsonGruppe.clearLayers();
+    ladeGeojsonLayer(evt.target.value);
+}
 //console.log(wienDatensaetze) // zeigt alle Datensaetze an 
