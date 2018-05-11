@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bike Trail Tirol - Etappe 09 Kaiserhaus - Kufstein </title><!-- TODO: Etappentitel einfügen -->
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../js/leaflet/leaflet.css" />
+    <script src="../js/leaflet/leaflet.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="biketirol.js"></script>
+
+</head>
+
+<body>
+    <div id="header">
+        <h2 class="white">Bike Trail Tirol</h2>
+        <h3 class="white">Griass enk die Wadeln!</h3>
+    </div>
+
+    <div class="author">
+        <img src="images/user.jpg" alt="Ihr Reiseleiter" /><!-- TODO: anpassen -->
+        <p class="gray">
+            <a href="mailto:csap3389@student.uibk.ac.at">Christian Gruber</a> -<!-- TODO: anpassen -->
+            <a href="https://webmapping.github.io/biketirol/index.html">https://webmapping.github.io/biketirol/</a><!-- TODO: anpassen -->
+        </p>
+    </div>
+
+    <hr />
+
+    
+    <div class="article">
+        <h1>Etappe 09 Kaiserhaus - Kufstein</h1><!-- TODO: anpassen -->
+
+        <p> <i>Ihre Tour beginnt beim 500 Jahre alten Kaiserhaus in Aschau an der Brandenberger Ache. Die mittelschwierige Tour 
+                gestaltet sich sehr abwechslungsreich und führt neben mehreren Einkehrmöglichkeiten auch am Natur-Highlight Kaiserklamm
+                vorbei – die zu den schönsten Schluchtenlandschaften Österreichs zählt. Nach rund drei Stunden Fahrzeit erreichen 
+                Sie Ihr Ziel, Kufstein. Für eine wohlverdiente Stärkung nach der Tour empfiehlt sich die Theaterhütte in Kufstein.</i></p>
+        
+
+        TODO: Karte mit Radroute und Marker beim Start- und Endpunkt. Hintergrundkarte OSM, basemap.at und Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung) - siehe biketirol.js
+        <div id="map"></div>
+
+        <h2>Streckenbeschreibung</h2>
+        <p>Leicht ansteigend verläuft der Beginn der Etappe (vorbei an der Kaiserklamm) 
+            in östlicher Richtung (Radweg Nr.326). Nach ca. 7 Kilometern kommt eine größere Wegkreuzung,
+            bei der man rechts abzweigt. Von nun an hält man sich bis zum Thiersee an die Radwegweiser Nr. 327 (Thierseerunde).
+            Bei Erreichen der Hauptstraße in Thiersee (2,5 Stunden ab Kaiserhaus) zweigt man rechts ab,
+            um nach 400 Metern wiederum links in einen asphaltierten Weg („Lechen“) einzubiegen.
+            Von nun an hält man sich an die Wegweiser Richtung „Wacht“. Nach der Einkehr im Gasthaus 
+            Wachtl radelt man den Schotterweg hinunter bis zur Holzbrücke über die Thierseer Ache und am alten Bahnhof
+            vorbei über die Staatsgrenze. Immer auf der Hauptstraße fährt man nun nach Kiefersfelden bis man kurz vor dem Zentrum
+            beim Schild „Zum Schaupenwirt“ rechts abzweigt. Nun geht’s durchs Wohngebiet, beim Sportplatz kurz nach rechts 
+            und gleich wieder links in einen schmalen Fahrweg und über die Brücke des Kieferbachs. Nach der Brücke fährt
+            man links weiter, überquert nach ein paar hundert Metern die Hauptstraße, und es geht in gleicher Richtung weiter, 
+            bis man zur Autobahnbrücke über den Inn gelangt. 
+            Diese wird unterquert und man erreicht sofort das Etappenziel am Innufer.</p>
+
+        <h3>Links</h3>
+        <ul>
+            <li> <a href="https://www.tirol.at/reisefuehrer/sport/radfahren/biketouren/a-bike-trail-tirol-kaiserhaus-kufstein">Reisefuehrer Tirol, Etappe 09 Kaiserhaus-Kufstein></a></li>
+            <li> <a href="https://www.tirol.at/reisefuehrer/ausflugstipps/auusflugsziele/a-kaiserhaus-kaiserklamm"> Die Kaiserklamm in Aschau></a></li>
+            <li> <a href="http://www.oesterreichgourmet.at/thiersee/restaurant-gasthof-wachtl/"> Gasthof Wachtl></a></li>
+            <li> <a href="http://www.brandenberg.tirol.gv.at/"> Die Gemeinde Brandenberg></a></li>
+            <li> <a href="http://www.kufstein.gv.at/"> Die Stadt Kufstein></a></li>
+           
+        </ul>
+    </div>
+
+    <hr />
+
+    <!-- TODO: Links anpassen zu den benachbarten Etappen - siehe OLAT Tabelle ... -->
+    <div id="footer" class="gray">
+        <a class="back" href="../08/index.html">
+            <i class="fas fa-arrow-alt-circle-left"></i> vorhergehender Stop</a>
+        <a class="next" href="../10/index.html">nächster Stop
+            <i class="fas fa-arrow-alt-circle-right"></i>
+        </a>
+    </div>
+
+</body>
+</html>
