@@ -10,18 +10,91 @@
 
     -> statt 00 natürlich die eigene Etappe (z.B. 01,02, ...25)
 */
-
+let myMap = L.map("map");
 // eine neue Leaflet Karte definieren
+
+const etappe09group = L.featureGroup();
 
 // Grundkartenlayer mit OSM, basemap.at, Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung) über L.featureGroup([]) definieren
 // WMTS URLs siehe https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol
 
+let myLayers = {
+    geolandbasemap : L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+        subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
+        attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at"
+        }
+    ),
+    osm : L.tileLayer( 
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
+        subdomains: ['a', 'b', 'c'], // subdomains hinzugefügt
+        attribution : "Datenquelle: <a href='https://www.openstreetmap.org'>OpenStreetMap"
+        }
+    ), 
+    bmapoverlay :  L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
+        subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
+        attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at"
+        }
+    ),
+    bmaporthofoto30cm : L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg",{
+        subdomains : ["maps", "maps1", "maps2", "maps3", "maps4"],
+        attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at"
+        }
+    ),
+    gdi_ortho : L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
+        attribution : "Datenquelle: <a href ='https://www.tirol.gv.at/data/nutzungsbedingungen/'> Land Tirol - data.tirol.gv.at </a>"
+     }
+    ),
+    gdi_sommer: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_summer/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
+        attribution : "Datenquelle: <a href ='https://www.tirol.gv.at/data/nutzungsbedingungen/'> Land Tirol - data.tirol.gv.at </a>"
+    }
+    ),
+    gdi_winter: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_winter/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
+        attribution : "Datenquelle: <a href ='https://www.tirol.gv.at/data/nutzungsbedingungen/'> Land Tirol - data.tirol.gv.at </a>"
+    }
+    ),
+    gdi_nomenklatur: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_nomenklatur/GoogleMapsCompatible/{z}/{x}/{y}.png8", {
+        attribution : "Datenquelle: <a href ='https://www.tirol.gv.at/data/nutzungsbedingungen/'> Land Tirol - data.tirol.gv.at </a>",
+        pane: "overlayPane"                         
+        }
+    ),  
+}; 
+myMap.addLayer(myLayers.geolandbasemap)
 // Maßstab metrisch ohne inch
 
+L.control.scale({      
+    maxWidth: 200,      
+    metric: true,       
+    imperial: false     
+}).addTo(myMap);
+
 // Start- und Endpunkte der Route als Marker mit Popup, Namen, Wikipedia Link und passenden Icons für Start/Ziel von https://mapicons.mapsmarker.com/
+const marker_Kaiserhaus = [47.536631,11.912908]
+let Kaiserhaus_popup = '<h1>Kaiserhaus </h1>https://de.wikipedia.org/wiki/Kaiserklamm<a href="">Wikipedia</a>'
+L.marker(marker_Kaiserhaus, {icon: L.icon({
+  iconUrl: '../icons/bike.png',
+
+})
+}).addTo(etappe09group).bindPopup(Kaiserhaus_popup);
+
+const marker_Kufstein = [47.605964,12.196378]
+let Kufstein_popup = '<h1>Kufstein </h1>https://de.wikipedia.org/wiki/Kufstein<a href="">Wikipedia</a>'
+L.marker(marker_Kufstein, {icon: L.icon({
+  iconUrl: '../icons/bike.png',
+})
+}).addTo(etappe09Group).bindPopup(Kufstein_popup);
+
 
 // GeoJSON Track als Linie in der Karte einzeichnen und auf Ausschnitt zoomen
+
 // Einbauen nicht über async, sondern über ein L.geoJSON() mit einem Javascript Objekt (wie beim ersten Stadtspaziergang Wien Beispiel)
+let geojson = L.geoJSON(etappe09).addTo(etappe09group);
 
 // Baselayer control für OSM, basemap.at, Elektronische Karte Tirol hinzufügen
 
