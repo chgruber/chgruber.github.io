@@ -10,7 +10,9 @@
 
     -> statt 00 natürlich die eigene Etappe (z.B. 01,02, ...25)
 */
-let myMap = L.map("map");
+let myMap = L.map("map",{
+    fullscreenControl: true
+});
 // eine neue Leaflet Karte definieren
 
 const etappe09Group = L.featureGroup();
@@ -91,7 +93,7 @@ L.marker(marker_Kufstein, {icon: L.icon({
 // GeoJSON Track als Linie in der Karte einzeichnen und auf Ausschnitt zoomen
 // Einbauen nicht über async, sondern über ein L.geoJSON() mit einem Javascript Objekt (wie beim ersten Stadtspaziergang Wien Beispiel)
 
-let geojson = L.geoJSON(etappe09).addTo(etappe09Group);
+//let geojson = L.geoJSON(etappe09).addTo(etappe09Group);
 
 // Baselayer control für OSM, basemap.at, Elektronische Karte Tirol hinzufügen
 let myMapControl  = L.control.layers({                
@@ -104,11 +106,24 @@ let myMapControl  = L.control.layers({
     
   }, {
     "gdi_Nomenklatur" : myLayers.gdi_nomenklatur,
-  //  "Bike Route"      : myLayers.etappe09Group, // funktioniert leider noch nicht....
+    "Bike Route"      : etappe09Group, // funktioniert leider noch nicht....
 } ); 
 
 myMap.addControl(myMapControl);
 
-myMap.addLayer(etappe09Group)
+//myMap.addLayer(etappe09Group)
 
-myMap.fitBounds(etappe09Group.getBounds()); 
+//myMap.fitBounds(etappe09Group.getBounds()); 
+/*var gpx = '...'; // URL to your GPX file or the GPX itself
+new L.GPX(gpx, {
+    async: true}).on('loaded', function(e) {
+  map.fitBounds(e.target.getBounds());
+}).addTo(map);*/
+
+let gpxTrack = new L.GPX("data/etappe09.gpx", {
+    async : true,
+}).addTo(etappe09Group);
+gpxTrack.on("loaded", function(evt) {
+    myMap.fitBounds(evt.target.getBounds());
+});
+
