@@ -124,6 +124,15 @@ let gpxTrack = new L.GPX("data/etappe09.gpx", {
     async : true,
 }).addTo(etappe09Group);
 gpxTrack.on("loaded", function(evt) {
+    //console.log(evt.target.get_distance(0))
+    //console.log(evt.target.get_elevation_min().toFixed(0))
+    //console.log(evt.target.get_elevation_max().toFixed(0))
+    //console.log(evt.target.get_elevation_gain().toFixed(0))
+    //console.log(evt.target.get_elevation_loss().toFixed(0))
+    let laenge = evt.target.get_distance().toFixed(0);
+    document.getElementById("laenge").innerHTML = laenge;
+    
     myMap.fitBounds(evt.target.getBounds());
+
 });
 
