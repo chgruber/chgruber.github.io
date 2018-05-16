@@ -103,13 +103,12 @@ let myMapControl  = L.control.layers({
     "gdi_Winter"    : myLayers.gdi_winter,
     
   }, {
-
-// Overlay controls zum unabhängigem Ein-/Ausschalten der Route und Marker hinzufügen
-"gdi_Nomenklatur" : myLayers.gdi_nomenklatur,
+    "gdi_Nomenklatur" : myLayers.gdi_nomenklatur,
+  //  "Bike Route"      : myLayers.etappe09Group, // funktioniert leider noch nicht....
 } ); 
 
 myMap.addControl(myMapControl);
 
 myMap.addLayer(etappe09Group)
 
-myMap.fitBounds(etappe09Group.getBounds());
+myMap.fitBounds(etappe09Group.getBounds()); 
