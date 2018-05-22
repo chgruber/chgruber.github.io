@@ -1,5 +1,7 @@
 // Leaflet Karte initialisieren
-let karte = L.map("divKarte");
+let karte = L.map("divKarte", {
+    fullscreenContorl: true
+});
 
 // Gruppe für GeoJSON Layer definieren
 let geojsonGruppe = L.featureGroup().addTo(karte);
@@ -75,18 +77,19 @@ async function ladeGeojsonLayer(datenAttribute) {
 
     // GeoJSON Geometrien hinzufügen und auf Ausschnitt zoomen
     const geojsonObjekt = L.geoJSON(response_json, {
-        onEachFeature : function(feature,layer) { //Popups erstellen
-        let popup = "<h3>Attribute</h3>";
-        for (attribut in feature.properties) {
-            let wert = feature.properties[attribut];
-            if (wert && wert.toString().startsWith("http:")) {
-                popup += `${attribut}: <a href="${wert}">Weblink</a><br/>`;    
-        } else {
-            popup += `${attribut}: ${wert} </br>`;
-        }
-        //console.log(popup);
-        layer.bindPopup(popup, {
-            maxWidth : 600,
+        onEachFeature : function (feature,layer) { //Popups erstellen
+            let popup = "<h3>Attribute</h3>";
+            for (attribut in feature.properties) {
+                let wert = feature.properties[attribut];
+                if (wert && wert.toString().startsWith("http:")) {
+                    popup += `${attribut}: <a href="${wert}">Weblink</a><br/>`;    
+                } else {
+                    popup += `${attribut}: ${wert} </br>`;
+                }
+            }
+            console.log(popup);
+            layer.bindPopup(popup, {
+                maxWidth : 600,
             });
         },
         pointToLayer : function (geojsonPoint, latling) {
@@ -94,8 +97,8 @@ async function ladeGeojsonLayer(datenAttribute) {
                 return L.marker(latling, {
                     icon : L.icon({
                         iconUrl : datenAttribute.icon,
-                        iconAnchor : [16,32),
-                        popupAnchor : [0,-32),]
+                        iconAnchor : [16,32],
+                        popupAnchor : [0,-32],
                     })
                 })
 
@@ -123,8 +126,8 @@ ladeGeojsonLayer(wienDatensaetze[0]);
 
 // zugriff auf die ID um die Auswahl in der Html zu veraendern
 let layerAuswahl = document.getElementById("layerAuswahl");
-for (let i=0; i<wienDatensaetze.length; i++) {
-    layerAuswahl.innerHTML += `<option value="${i}">${wienDatensaetze[i].titel}</option>`
+for (let i=0; i< wienDatensaetze.length; i++) {
+    layerAuswahl.innerHTML += `<option value="${i}">${wienDatensaetze[i].titel}</option>`;
     //console.log(datensatz.titel)
 }
 
