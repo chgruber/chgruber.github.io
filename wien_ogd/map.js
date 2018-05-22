@@ -1,7 +1,5 @@
-// Leaflet Karte initialisieren
 let karte = L.map("divKarte", {
-    fullscreenContorl: true
-});
+    fullscreenContorl: true,});
 
 // Gruppe für GeoJSON Layer definieren
 let geojsonGruppe = L.featureGroup().addTo(karte);
@@ -87,7 +85,7 @@ async function ladeGeojsonLayer(datenAttribute) {
                     popup += `${attribut}: ${wert} </br>`;
                 }
             }
-            console.log(popup);
+            //console.log(popup);
             layer.bindPopup(popup, {
                 maxWidth : 600,
             });
@@ -134,7 +132,7 @@ for (let i=0; i< wienDatensaetze.length; i++) {
 layerAuswahl.onchange = function(evt) {
     geojsonGruppe.clearLayers();
     let i = evt.target.value;
-    console.log(i,wienDatensaetze[i])
+//    console.log(i,wienDatensaetze[i])
     ladeGeojsonLayer(wienDatensaetze[i]);
 }
 //console.log(wienDatensaetze) // zeigt alle Datensaetze an 

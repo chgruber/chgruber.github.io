@@ -62,7 +62,23 @@ let myLayers = {
         }
     ),  
 }
+
 myMap.addLayer(myLayers.geolandbasemap); 
+
+const gdi_sommer = L.layerGroup([
+    myLayers.gdi_sommer,
+    myLayers.gdi_nomenklatur
+]);
+const gdi_winter = L.layerGroup([
+    myLayers.gdi_winter,
+    myLayers.gdi_nomenklatur
+]);
+const gdi_ortho = L.layerGroup([
+    myLayers.gdi_ortho,
+    myLayers.gdi_nomenklatur
+]);
+
+
 // Maßstab metrisch ohne inch
 //Maßstabsleiste
 L.control.scale({       // http://leafletjs.com/reference-1.3.0.html#control-scale
@@ -131,6 +147,18 @@ gpxTrack.on("loaded", function(evt) {
     //console.log(evt.target.get_elevation_loss().toFixed(0))
     let laenge = evt.target.get_distance().toFixed(0);
     document.getElementById("laenge").innerHTML = laenge;
+
+    let min = evt.target.get_elevation_min().toFixed(0);
+    document.getElementById("min").innerHTML = min
+
+    let max = evt.target.get_elevation_max().toFixed(0);
+    document.getElementById("max").innerHTML = max
+
+    let hinauf = evt.target.get_elevation_gain().toFixed(0);
+    document.getElementById("aufstieg").innerHTML = hinauf
+
+    let hinab = evt.target.get_elevation_loss().toFixed(0);
+    document.getElementById("abstieg").innerHTML = hinab
     
     myMap.fitBounds(evt.target.getBounds());
 
