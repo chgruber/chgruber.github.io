@@ -111,6 +111,18 @@ L.marker(marker_Kufstein, {icon: L.icon({
 
 //let geojson = L.geoJSON(etappe09).addTo(etappe09Group);
 
+// elevation tool - Höhenprofil
+var hoehenprofil = L.control.elevation({
+    position : "topright",
+
+    });
+hoehenprofil.addTo(myMap);
+var g=new L.GPX("data/etappe09.gpx", {async: true});
+g.on("addline",function(evt){
+	hoehenprofil.addData(evt.line);
+});
+g.addTo(myMap);
+
 // Baselayer control für OSM, basemap.at, Elektronische Karte Tirol hinzufügen
 let myMapControl  = L.control.layers({                
     "Geoland Basemap" : myLayers.geolandbasemap,
@@ -123,6 +135,7 @@ let myMapControl  = L.control.layers({
   }, {
     "gdi_Nomenklatur" : myLayers.gdi_nomenklatur,
     "Bike Route"      : etappe09Group, // funktioniert leider noch nicht....
+    //"Hoehnprofil"     : hoehenprofil
 } ); 
 
 myMap.addControl(myMapControl);
@@ -163,4 +176,3 @@ gpxTrack.on("loaded", function(evt) {
     myMap.fitBounds(evt.target.getBounds());
 
 });
-
