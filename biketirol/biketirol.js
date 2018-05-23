@@ -15,6 +15,10 @@ let myMap = L.map("map",{
 });
 // eine neue Leaflet Karte definieren
 
+//let overlayTrack = L.featureGroup().addTo(myMap);
+//let overlayMarker = L.featureGroup().addTo(myMap);
+let overlaySteigung = L.featureGroup().addTo(myMap);
+
 const etappe09Group = L.featureGroup();
 
 // Grundkartenlayer mit OSM, basemap.at, Elektronische Karte Tirol (Sommer, Winter, Orthophoto jeweils mit Beschriftung) über L.featureGroup([]) definieren
@@ -114,7 +118,8 @@ L.marker(marker_Kufstein, {icon: L.icon({
 // elevation tool - Höhenprofil
 var hoehenprofil = L.control.elevation({
     position : "topright",
-
+    theme: "lime-theme",
+    collapsed: true,
     });
 hoehenprofil.addTo(myMap);
 var g=new L.GPX("data/etappe09.gpx", {async: true});
@@ -135,7 +140,7 @@ let myMapControl  = L.control.layers({
   }, {
     "gdi_Nomenklatur" : myLayers.gdi_nomenklatur,
     "Bike Route"      : etappe09Group, // funktioniert leider noch nicht....
-    //"Hoehnprofil"     : hoehenprofil
+    "Steigungslinie"  : overlaySteigung,
 } ); 
 
 myMap.addControl(myMapControl);
@@ -175,4 +180,60 @@ gpxTrack.on("loaded", function(evt) {
     
     myMap.fitBounds(evt.target.getBounds());
 
+});
+
+
+gpxTrack.on("addline", function(evt){
+    hoehenprofil.addData(evt.line);
+    //console.log(evt.line);
+    //console.log(evt.line.getLatLngs());
+    //console.log(evt.line.getLatLngs()[0]);
+    //console.log(evt.line.getLatLngs()[0].lat);
+    //console.log(evt.line.getLatLngs()[0].long);
+    //console.log(evt.line.getLatLngs()[0].meta);
+    //console.log(evt.line.getLatLngs()[0].meta.ele);
+
+    let gpxLinie = evt.line.getLatLngs();
+    for (let i = 1; i < gpxLinie.length; i++) {
+        let p1 = gpxLinie [i-1];
+        let p2 = gpxLinie [i];
+        //console.log(p1.lat,p1.long,p2.lat,p2.lng);
+
+// Entfernung zwischen den Punkten
+        let dist = myMap.distance(
+                [p1.lat,p1.lng]
+                [p2.lat,p2.lng]
+        );
+
+// Hoehenunterschied
+        let delta = p2meta.ele - p1.meta.ele;
+
+// Steiung in %
+        let proz = 0;
+        if (dist > 0) {
+            proz = (delta / dist *100.0).toFixed(1);
+        }
+//      Das gleiche in Kurz // ? Ausdruck 1 sonst Ausdruck 2        
+//       let proz2 = (dist > 0) ? (delta / dist *100.0).toFixed(1) : 0;
+      
+        let farbe =
+         proz > 10   ? "#de2d26" :
+         proz > 6    ? "#fb6a4a" :
+         proz > 2    ? "#fc9272" :
+         proz > 0    ? "#edf8e9" :
+         proz > -2   ? "#bae4b3" :
+         proz > -6   ? "#a1d99b" :
+         proz > -10  ? "#31a354" :
+                        "#006d2c";
+
+        let polyline = L.polyline(
+            [
+                [p1.lat,p1.lng]
+                [p2.lat,p2.lng]
+            ],{
+                color : farbe,
+                weight : 10,
+            }
+        ).addTo(overlaySteigung)
+    }
 });
